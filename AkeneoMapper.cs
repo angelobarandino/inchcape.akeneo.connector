@@ -69,7 +69,7 @@ namespace Inchcape.Akeneo.Connector
 
         private static void MapIdentifierProperties<T>(IPimValueDictionary dictionary, T typeInstance) where T : class
         {
-            if (!(dictionary is IPimCodeIdentifier resObject)) return;
+            if (dictionary is not IPimCodeIdentifier resObject) return;
             
             foreach (var property in GetTypeProperties(typeInstance, typeof(PimIdentifierPropertyAttribute)))
             {
@@ -102,7 +102,7 @@ namespace Inchcape.Akeneo.Connector
         
         private static void MapAssociationProductsIds<T>(IPimValueDictionary dictionary, T typeInstance) where T : class
         {
-            if (!(dictionary is IPimResponseObject.IWithAssociations withAssocRes)) return;
+            if (dictionary is not IPimResponseObject.IWithAssociations withAssocRes) return;
             
             foreach (var property in GetTypeProperties(typeInstance, typeof(PimAssociationProductAttribute)))
             {
