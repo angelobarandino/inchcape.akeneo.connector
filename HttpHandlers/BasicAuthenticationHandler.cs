@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Inchcape.Akeneo.Connector.RequestHandlers
+namespace Inchcape.Akeneo.Connector.HttpHandlers
 {
     public class BasicAuthenticationHandler : DelegatingHandler
     {
@@ -35,7 +35,7 @@ namespace Inchcape.Akeneo.Connector.RequestHandlers
 
         private string GetBase64StringAuthenticationKey()
         {
-            var authKey = $"{_settings.ClientID}:{_settings.SecretKey}";
+            var authKey = $"{_settings.ClientId}:{_settings.SecretKey}";
 
             var byteArr = Encoding.UTF8.GetBytes(authKey);
 

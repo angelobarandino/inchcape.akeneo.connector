@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Inchcape.Akeneo.Connector.Connectors;
 
-namespace Inchcape.Akeneo.Connector.RequestHandlers
+namespace Inchcape.Akeneo.Connector.HttpHandlers
 {
     public class TokenAuthenticationHandler : DelegatingHandler
     {

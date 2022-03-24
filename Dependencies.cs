@@ -2,7 +2,7 @@
 using System.Net.Http;
 using Inchcape.Akeneo.Connector;
 using Inchcape.Akeneo.Connector.Connectors;
-using Inchcape.Akeneo.Connector.RequestHandlers;
+using Inchcape.Akeneo.Connector.HttpHandlers;
 using Polly;
 using Refit;
 
