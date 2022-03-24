@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Inchcape.Akeneo.Connector.Responses
 {
     [JsonConverter(typeof(JsonPathConverter))]
-    public class AkeneoProductSearchResponse
+    public class PimProductsResponse
     {
         [JsonProperty("current_page")] 
         public int CurrentPage { get; set; }

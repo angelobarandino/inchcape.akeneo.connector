@@ -36,18 +36,21 @@ namespace Microsoft.Extensions.DependencyInjection
             services
                 .AddRefitClient<IAkeneoProductsConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
+                .AddHttpMessageHandler<MessageLoggingHandler>()
                 .AddTransientHttpErrorPolicy(RetryPolicy)
                 .ConfigureHttpClient(SetupClient(settings));
 
             services
                 .AddRefitClient<IAkeneoRefEntitiesConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
+                .AddHttpMessageHandler<MessageLoggingHandler>()
                 .AddTransientHttpErrorPolicy(RetryPolicy)
                 .ConfigureHttpClient(SetupClient(settings));
 
             services
                 .AddRefitClient<IAkeneoAssetsManagerConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
+                .AddHttpMessageHandler<MessageLoggingHandler>()
                 .AddTransientHttpErrorPolicy(RetryPolicy)
                 .ConfigureHttpClient(SetupClient(settings));
 
