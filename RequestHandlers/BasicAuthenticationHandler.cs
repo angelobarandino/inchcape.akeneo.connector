@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Inchcape.Akeneo.Connector.RequestHandlers
 {
@@ -19,7 +19,7 @@ namespace Inchcape.Akeneo.Connector.RequestHandlers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var content = JsonSerializer.Serialize(new
+            var content = JsonConvert.SerializeObject(new
             {
                 grant_type = "password",
                 username = _settings.Username,

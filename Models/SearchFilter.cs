@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Inchcape.Akeneo.Connector.Models
 {
@@ -18,7 +18,7 @@ namespace Inchcape.Akeneo.Connector.Models
         
         public override string ToString()
         {
-            var searchQuery = JsonSerializer.Serialize(new Dictionary<string, object>
+            var searchQuery = JsonConvert.SerializeObject(new Dictionary<string, object>
             {
                 { 
                     attribute, new object[]
