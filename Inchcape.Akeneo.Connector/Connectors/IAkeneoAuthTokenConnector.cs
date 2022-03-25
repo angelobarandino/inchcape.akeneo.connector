@@ -8,6 +8,9 @@ namespace Inchcape.Akeneo.Connector.Connectors
     public interface IAkeneoAuthTokenConnector
     {
         [Post("/api/oauth/v1/token")]
-        Task<AuthTokenResponse> GetTokenAsync([Body] UserCredentials user);
+        Task<AuthTokenResponse> GetTokenAsync([Body] UserPasswordAuthentication user);
+        
+        [Post("/api/oauth/v1/token")]
+        Task<AuthTokenResponse> GetTokenAsync([Body] RefreshTokenAuthentication refreshToken);
     }
 }

@@ -17,9 +17,8 @@ public class App
                     settings.AuthorizationToken = async sp =>
                     {
                         var tokenConnector = sp.GetRequiredService<IAkeneoAuthTokenConnector>();
-                        var response = await tokenConnector.GetTokenAsync(new UserCredentials
+                        var response = await tokenConnector.GetTokenAsync(new UserPasswordAuthentication
                         {
-                            GrantType = "password",
                             Username = "subaruauapi_8944",
                             Password = "ca1b61f0d",
                         });
