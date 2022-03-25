@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Inchcape.Akeneo.Connector.Responses
 {
-    public class PimReferenceEntityRecordResponse : PimValueDictionaryBase, IPimCodeIdentifier
+    public class ReferenceEntityRecordResponse : ValueDictionaryBase, IPimCodeIdentifier
     {
         [JsonProperty("code")]
         public string Code { get; set; }

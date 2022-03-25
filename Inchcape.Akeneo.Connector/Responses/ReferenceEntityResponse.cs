@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json;
 using Inchcape.Akeneo.Connector.Utils.Converters;
 using Newtonsoft.Json;
 
 namespace Inchcape.Akeneo.Connector.Responses
 {
     [JsonConverter(typeof(JsonPathConverter))]
-    public class PimAssetFamiliesResponse
+    public class ReferenceEntityResponse
     {
         [JsonProperty("_embedded.items")]
-        public List<PimAssetFamilyItem> Items { get; set; }
+        public List<ReferenceEntityItem> Items { get; set; }
     }
 }

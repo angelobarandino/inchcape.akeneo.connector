@@ -102,7 +102,7 @@ namespace Inchcape.Akeneo.Connector
         
         private static void MapAssociationProductsIds<T>(IPimValueDictionary dictionary, T typeInstance) where T : class
         {
-            if (dictionary is not IPimResponseObject.IWithAssociations withAssocRes) return;
+            if (dictionary is not IWithAssociations withAssocRes) return;
             
             foreach (var property in GetTypeProperties(typeInstance, typeof(PimAssociationProductAttribute)))
             {

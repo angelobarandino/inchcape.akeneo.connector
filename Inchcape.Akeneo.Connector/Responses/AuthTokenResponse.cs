@@ -2,7 +2,7 @@
 
 namespace Inchcape.Akeneo.Connector.Responses
 {
-    public class AkeneoAuthTokenResponse
+    public class AuthTokenResponse
     {
         [JsonProperty("access_token")]
         public string AccessToken { get; set; }

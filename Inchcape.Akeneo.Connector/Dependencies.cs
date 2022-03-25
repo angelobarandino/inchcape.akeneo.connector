@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Inchcape.Akeneo.Connector;
 using Inchcape.Akeneo.Connector.Connectors;
 using Inchcape.Akeneo.Connector.HttpHandlers;
+using Inchcape.Akeneo.Connector.Utils.Converters;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Polly;
 using Refit;
 
@@ -21,11 +26,15 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddAkeneoConnectors(this IServiceCollection services, AkeneoSettings settings)
         {
-            services.AddSingleton<AkeneoSettings>(settings);
-            services.AddTransient<BasicAuthenticationHandler>();
-            services.AddTransient<TokenAuthenticationHandler>();
+            var serializer = new NewtonsoftJsonContentSerializer(
+                new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                    Converters = { new StringEnumConverter() },
+                }
+            );
             
-            var refitSettings = new RefitSettings(new NewtonsoftJsonContentSerializer());
+            var refitSettings = new RefitSettings(serializer);
 
             services
                 .AddRefitClient<IAkeneoAuthTokenConnector>(_ => refitSettings)
@@ -36,23 +45,31 @@ namespace Microsoft.Extensions.DependencyInjection
             services
                 .AddRefitClient<IAkeneoProductsConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
-                .AddHttpMessageHandler<MessageLoggingHandler>()
                 .AddTransientHttpErrorPolicy(RetryPolicy)
                 .ConfigureHttpClient(SetupClient(settings));
 
             services
+                .AddRefitClient<IAkeneoProductModelsConnector>(_ => refitSettings)
+                .AddHttpMessageHandler<TokenAuthenticationHandler>()
+                .AddTransientHttpErrorPolicy(RetryPolicy)
+                .ConfigureHttpClient(SetupClient(settings));
+            
+            services
                 .AddRefitClient<IAkeneoRefEntitiesConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
-                .AddHttpMessageHandler<MessageLoggingHandler>()
                 .AddTransientHttpErrorPolicy(RetryPolicy)
                 .ConfigureHttpClient(SetupClient(settings));
 
             services
                 .AddRefitClient<IAkeneoAssetsManagerConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
-                .AddHttpMessageHandler<MessageLoggingHandler>()
                 .AddTransientHttpErrorPolicy(RetryPolicy)
                 .ConfigureHttpClient(SetupClient(settings));
+
+            services.AddSingleton<AkeneoSettings>(settings);
+            services.AddTransient<BasicAuthenticationHandler>();
+            services.AddTransient<TokenAuthenticationHandler>();
+            services.AddTransient<MessageLoggingHandler>();
 
             return services;
         }

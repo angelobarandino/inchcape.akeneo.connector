@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inchcape.Akeneo.Connector", "Inchcape.Akeneo.Connector\Inchcape.Akeneo.Connector.csproj", "{7FAC1347-FB53-4F4D-AF4B-5CFEBEA3B93C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inchcape.Akeneo.ConsoleApp", "Inchcape.Akeneo.ConsoleApp\Inchcape.Akeneo.ConsoleApp.csproj", "{229B955F-4FD4-4948-A2AA-944979161440}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{7FAC1347-FB53-4F4D-AF4B-5CFEBEA3B93C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FAC1347-FB53-4F4D-AF4B-5CFEBEA3B93C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FAC1347-FB53-4F4D-AF4B-5CFEBEA3B93C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{229B955F-4FD4-4948-A2AA-944979161440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229B955F-4FD4-4948-A2AA-944979161440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229B955F-4FD4-4948-A2AA-944979161440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229B955F-4FD4-4948-A2AA-944979161440}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

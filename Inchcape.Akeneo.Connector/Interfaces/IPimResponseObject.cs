@@ -1,4 +1,4 @@
-﻿using Inchcape.Akeneo.Connector.Models;
+﻿using System;
 
 namespace Inchcape.Akeneo.Connector.Interfaces
 {
@@ -7,10 +7,9 @@ namespace Inchcape.Akeneo.Connector.Interfaces
         string Family { get; }
         string Parent { get; }
         bool Enabled { get; }
-        
-        public interface IWithAssociations : IPimResponseObject
-        {
-            AssociationsDictionary Associations { get; }
-        }
+        string[] Categories { get; }
+        string[] Groups { get; }
+        DateTime Created { get; }
+        DateTime Updated { get; }
     }
 }

@@ -3,7 +3,7 @@ using Inchcape.Akeneo.Connector.Models;
 
 namespace Inchcape.Akeneo.Connector.Responses
 {
-    public abstract class PimValueDictionaryBase : IPimValueDictionary
+    public abstract class ValueDictionaryBase : IPimValueDictionary
     {
         public ValuesDictionary Values { get; set; }
     }
