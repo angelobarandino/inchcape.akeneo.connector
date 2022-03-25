@@ -20,21 +20,21 @@ namespace Inchcape.Akeneo.Connector
             return (T)dictionary.Values.GetPropertyNameValue(property, typeof(T), fallbackValue, locale);
         }
 
-        public static T Map<T>(this IPimValueDictionary dictionary) where T : class
+        public static T Map<T>(this IPimValueDictionary dictionary, T instance = null) where T : class
         {
-            var typeInstance = Activator.CreateInstance<T>();
+            instance = instance ?? Activator.CreateInstance<T>();
 
-            MapIdentifierProperties(dictionary, typeInstance);
+            MapIdentifierProperties(dictionary, instance);
             
-            MapFieldProperties(dictionary, typeInstance);
+            MapFieldProperties(dictionary, instance);
             
-            MapPriceProperties(dictionary, typeInstance);
+            MapPriceProperties(dictionary, instance);
             
-            MapMediaFileDownloadUrlProperties(dictionary, typeInstance);
+            MapMediaFileDownloadUrlProperties(dictionary, instance);
             
-            MapAssociationProductsIds(dictionary, typeInstance);
+            MapAssociationProductsIds(dictionary, instance);
 
-            return typeInstance;
+            return instance;
         }
 
         private static void MapPriceProperties<T>(IPimValueDictionary dictionary, T typeInstance) where T : class
