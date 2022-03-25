@@ -4,7 +4,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Inchcape.Akeneo.Connector.HttpHandlers
 {
@@ -19,10 +18,6 @@ namespace Inchcape.Akeneo.Connector.HttpHandlers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var content = JsonConvert.SerializeObject(_settings.User);
-
-            request.Content = new StringContent(content, Encoding.UTF8, "application/json");
-
             request.Headers.Authorization = new AuthenticationHeaderValue("Basic", GetBase64StringAuthenticationKey());
 
             return base.SendAsync(request, cancellationToken);
