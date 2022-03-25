@@ -19,12 +19,7 @@ namespace Inchcape.Akeneo.Connector.HttpHandlers
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var content = JsonConvert.SerializeObject(new
-            {
-                grant_type = "password",
-                username = _settings.Username,
-                password = _settings.Password
-            });
+            var content = JsonConvert.SerializeObject(_settings.User);
 
             request.Content = new StringContent(content, Encoding.UTF8, "application/json");
 

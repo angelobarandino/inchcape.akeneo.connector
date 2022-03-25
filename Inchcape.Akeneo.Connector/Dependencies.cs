@@ -15,6 +15,9 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class Dependencies
     {
+        private static Random random;
+        private static readonly object randomLock;
+        
         public static IServiceCollection AddAkeneoConnectors(this IServiceCollection services, Action<AkeneoSettings> actionSetup)
         {
             var settings = new AkeneoSettings();
@@ -39,31 +42,37 @@ namespace Microsoft.Extensions.DependencyInjection
             services
                 .AddRefitClient<IAkeneoAuthTokenConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<BasicAuthenticationHandler>()
-                .AddTransientHttpErrorPolicy(RetryPolicy)
+                .AddTransientHttpErrorPolicy(RetryPolicy(settings))
+                .ConfigureHttpClient(SetupClient(settings));
+            
+            services
+                .AddRefitClient<IAkeneoPublishedProductsConnector>(_ => refitSettings)
+                .AddHttpMessageHandler<TokenAuthenticationHandler>()
+                .AddTransientHttpErrorPolicy(RetryPolicy(settings))
                 .ConfigureHttpClient(SetupClient(settings));
 
             services
                 .AddRefitClient<IAkeneoProductsConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
-                .AddTransientHttpErrorPolicy(RetryPolicy)
+                .AddTransientHttpErrorPolicy(RetryPolicy(settings))
                 .ConfigureHttpClient(SetupClient(settings));
 
             services
                 .AddRefitClient<IAkeneoProductModelsConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
-                .AddTransientHttpErrorPolicy(RetryPolicy)
+                .AddTransientHttpErrorPolicy(RetryPolicy(settings))
                 .ConfigureHttpClient(SetupClient(settings));
             
             services
                 .AddRefitClient<IAkeneoRefEntitiesConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
-                .AddTransientHttpErrorPolicy(RetryPolicy)
+                .AddTransientHttpErrorPolicy(RetryPolicy(settings))
                 .ConfigureHttpClient(SetupClient(settings));
 
             services
                 .AddRefitClient<IAkeneoAssetsManagerConnector>(_ => refitSettings)
                 .AddHttpMessageHandler<TokenAuthenticationHandler>()
-                .AddTransientHttpErrorPolicy(RetryPolicy)
+                .AddTransientHttpErrorPolicy(RetryPolicy(settings))
                 .ConfigureHttpClient(SetupClient(settings));
 
             services.AddSingleton<AkeneoSettings>(settings);
@@ -74,11 +83,14 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
-        public static IAsyncPolicy<HttpResponseMessage> RetryPolicy(PolicyBuilder<HttpResponseMessage> policyBuilder)
+        private static Func<PolicyBuilder<HttpResponseMessage>, IAsyncPolicy<HttpResponseMessage>> RetryPolicy(AkeneoSettings settings)
         {
-            var retryPolicy = policyBuilder.WaitAndRetryAsync(3, retryCount => TimeSpan.FromMilliseconds(600));
+            return policyBuilder =>
+            {
+                var retryPolicy = policyBuilder.WaitAndRetryAsync(settings.RetryCount, retryCount => TimeSpan.FromSeconds(Math.Pow(settings.RetryDelay, retryCount)));
 
-            return retryPolicy;
+                return retryPolicy;
+            };
         }
 
         private static Action<HttpClient> SetupClient(AkeneoSettings settings)

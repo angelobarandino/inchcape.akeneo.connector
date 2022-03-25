@@ -44,9 +44,9 @@ namespace Inchcape.Akeneo.Connector
                 var attr = property.GetCustomAttribute<PimPropertyPriceAttribute>();
                 if (attr == null) continue;
 
-                var priceCurrencyValue = dictionary.Values.GetPropertyNameValue(attr.Field, typeof(PriceCurrency[])) as PriceCurrency[];
+                var priceCurrencyValue = dictionary.Values.GetPropertyNameValue(attr.Field, typeof(PriceInfo[])) as PriceInfo[];
                 
-                var priceValue = (priceCurrencyValue ?? Array.Empty<PriceCurrency>()).FirstOrDefault(
+                var priceValue = (priceCurrencyValue ?? Array.Empty<PriceInfo>()).FirstOrDefault(
                     x=> x.Currency == attr.Currency
                 );
                 

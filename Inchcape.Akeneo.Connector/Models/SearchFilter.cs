@@ -8,7 +8,6 @@ namespace Inchcape.Akeneo.Connector.Models
     {
         private readonly Dictionary<string, List<object>> _searchQuery = new Dictionary<string, List<object>>();
 
-
         public SearchFilter Set(string attribute, string @operator, object value, string locale = null, string scope = null)
         {
             if (!_searchQuery.ContainsKey(attribute))
