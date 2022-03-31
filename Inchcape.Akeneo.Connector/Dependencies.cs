@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Inchcape.Akeneo.Connector;
 using Inchcape.Akeneo.Connector.Connectors;
 using Inchcape.Akeneo.Connector.HttpHandlers;
-using Inchcape.Akeneo.Connector.Utils.Converters;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using Polly;
 using Refit;
 
