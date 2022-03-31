@@ -15,9 +15,6 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class Dependencies
     {
-        private static Random random;
-        private static readonly object randomLock;
-        
         public static IServiceCollection AddAkeneoConnectors(this IServiceCollection services, Action<AkeneoSettings> actionSetup)
         {
             var settings = new AkeneoSettings();
@@ -29,15 +26,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection AddAkeneoConnectors(this IServiceCollection services, AkeneoSettings settings)
         {
-            var serializer = new NewtonsoftJsonContentSerializer(
-                new JsonSerializerSettings
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                    Converters = { new StringEnumConverter() },
-                }
-            );
-            
-            var refitSettings = new RefitSettings(serializer);
+            var refitSettings = settings.RefitSettings ?? AkeneoSettings.DefaultRefitSettings();
 
             services
                 .AddRefitClient<IAkeneoAuthTokenConnector>(_ => refitSettings)
